@@ -8,3 +8,122 @@
 
   box-sizing: border-box;
 }
+
+.app-container {
+  font-family: Arial, sans-serif;
+}
+
+.page-title {
+  color: #FFCB05;
+  text-shadow: 2px 2px #3B4CCA;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.locations-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.encounter {
+  text-align: center;
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  width: 80%;
+  max-width: 800px;
+  border-radius: 8px;
+}
+
+.pokemon-encounter {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.pokemon-encounter img {
+  width: 150px; 
+  height: auto;
+  margin-top: 10px;
+}
+
+
+.no-pokemon {
+  color: #3B4CCA;
+  font-size: 1.2em;
+  margin-bottom: 15px;
+}
+
+
+.user-pokemon-section {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.user-pokemon-section h3 {
+  text-align: center;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+.user-pokemon-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.user-pokemon-grid img {
+  width: 100px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.user-pokemon-grid button {
+  display: block;
+  margin-top: 5px;
+  padding: 5px 10px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.user-pokemon-grid button:hover {
+  background-color: #0056b3;
+}
+
+.back-button {
+  margin-top: 100px;
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background-color: #218838;
+}
+
+button {
+  background-color: #3B4CCA;
+  color: #FFF;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #2a2a72;
+}
+
+
+
+
+

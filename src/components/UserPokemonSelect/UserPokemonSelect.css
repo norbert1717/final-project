@@ -1,19 +1,19 @@
 .user-pokemon-select {
-    margin-top: 20px;
-    text-align: center;
-    color: #3B4CCA; 
-  }
-  
-  .user-pokemon-select h3 {
-    font-size: 1.2em;
-    margin-bottom: 15px;
-    color: #FFCB05;
-    text-shadow: 1px 1px #2a2a72;
-  }
-  
-  .user-pokemon-list {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-  }
+  margin-top: 20px;
+  text-align: center;
+  color: #3B4CCA; 
+}
+
+.user-pokemon-select h3 {
+  font-size: 1.2em;
+  margin-bottom: 15px;
+  color: #FFCB05;
+  text-shadow: 1px 1px #2a2a72;
+}
+
+.user-pokemon-list {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}

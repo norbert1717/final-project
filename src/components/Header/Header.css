@@ -1,35 +1,35 @@
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #3B4CCA;
-    padding: 10px 20px;
-  }
-  
-  .logo {
-    color: #FFCB05;
-    font-size: 1.5em;
-    text-shadow: 1px 1px #2a2a72;
-  }
-  
-  .nav {
-    display: flex;
-    gap: 15px;
-  }
-  
-  .nav button {
-    background-color: transparent;
-    border: none;
-    color: #FFCB05;
-    font-size: 1em;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
-  .nav button:hover {
-    color: #FFF;
-  }
-  
-  .nav button:focus {
-    outline: none;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #3B4CCA;
+  padding: 10px 20px;
+}
+
+.logo {
+  color: #FFCB05;
+  font-size: 1.5em;
+  text-shadow: 1px 1px #2a2a72;
+}
+
+.nav {
+  display: flex;
+  gap: 15px;
+}
+
+.nav button {
+  background-color: transparent;
+  border: none;
+  color: #FFCB05;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.nav button:hover {
+  color: #FFF;
+}
+
+.nav button:focus {
+  outline: none;
+}
