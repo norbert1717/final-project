@@ -5,6 +5,7 @@ import Header from './components/Header/Header';
 import UserPokemonSelect from './components/UserPokemonSelect/UserPokemonSelect';
 import BattleScreen from './components/BattleScreen/BattleScreen';
 import { getRandomPokemonsFromLocation } from './components/RandomGenerator/RandomGenerator';
+import WelcomeScreen from './components/WelcomeScreen/WelcomeScreen';
 
 function App() {
   const [locations, setLocations] = useState([]);
@@ -13,6 +14,7 @@ function App() {
   const [selectedPokemon, setSelectedPokemon] = useState(null); // Selected Pokémon during encounter
   const [showLocations, setShowLocations] = useState(true); // Whether to display locations or the encounter/battle
   const [locationPokemonMap, setLocationPokemonMap] = useState({}); // Map of Pokémon by location
+  const [showWelcome, setShowWelcome] = useState(true); // New state for welcome screen
 
   // List of default Pokémon URLs representing the user's Pokémon
 const usersPokemon = useRef([
@@ -106,6 +108,10 @@ useEffect(() => {
     <p>You caught{pokemon.name}!;</p> // Notify the user
     )
   };
+
+  if (showWelcome) {
+    return <WelcomeScreen onStart={() => setShowWelcome(false)} />;
+  }
 
   if (loading) {
     return (
