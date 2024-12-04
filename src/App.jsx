@@ -4,7 +4,7 @@ import LocationCard from './components/LocationCard/LocationCard';
 import Header from './components/Header/Header';
 import UserPokemonSelect from './components/UserPokemonSelect/UserPokemonSelect';
 import BattleScreen from './components/BattleScreen/BattleScreen';
-import { getRandomPokemons } from './components/RandomGenerator/RandomGenerator';
+import { getRandomPokemonsFromLocation } from './components/RandomGenerator/RandomGenerator';
 
 function App() {
   const [locations, setLocations] = useState([]);
@@ -23,31 +23,27 @@ const usersPokemon = useRef([
 
 useEffect(() => {
   const fetchLocations = async () => {
-    // Fetch the initial list of locations
     try {
       const response = await fetch('https://pokeapi.co/api/v2/location?limit=20');
-      const data = await response.json(); // Parse the JSON response
+      const data = await response.json();
 
-      setLocations(data.results); // Update locations state with the fetched data
+      setLocations(data.results);
 
-      // Assign random Pokémon to each location
       const newLocationPokemonMap = {};
-      data.results.forEach(location => {
-        const randomPokemons = getRandomPokemons(2, 3); // Assign 2-3 random Pokémon per location
-        newLocationPokemonMap[location.name] = randomPokemons;
-      });
+      for (const location of data.results) {
+        const pokemons = await getRandomPokemonsFromLocation(location.url);
+        newLocationPokemonMap[location.name] = pokemons;
+      }
 
-      setLocationPokemonMap(newLocationPokemonMap); // Store in state
-      setLoading(false); // Indicate that loading is complete
-
+      setLocationPokemonMap(newLocationPokemonMap);
+      setLoading(false);
     } catch (error) {
       console.error('Error fetching locations:', error);
     }
   };
 
-  // Call the async function to start fetching data
   fetchLocations();
-}, []); // Empty dependency array so effect runs only once
+}, []);
 
   // Handle selecting a location
   const handleLocationClick = async (location) => {
