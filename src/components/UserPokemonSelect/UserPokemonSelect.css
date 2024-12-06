@@ -17,3 +17,13 @@
   gap: 15px;
   flex-wrap: wrap;
 }
+
+p {
+  text-align: center;
+}
+span {
+  display: flex;
+  flex-direction: wrap;
+  justify-content: center;
+  
+}

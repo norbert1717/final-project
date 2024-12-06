@@ -1,8 +1,16 @@
+import { useNavigate } from 'react-router-dom';
 import './Header.css';
 
 function Header() {
+  const navigate = useNavigate(); 
+
   const handleButtonClick = (buttonName) => {
     console.log(`${buttonName} button clicked`);
+    if (buttonName === 'Locations') {
+      navigate('/locations');
+    } else if (buttonName === 'My Pokémons') {
+      navigate('/mypokemons'); 
+    }
   };
 
   return (
@@ -11,8 +19,6 @@ function Header() {
       <nav className="nav">
         <button onClick={() => handleButtonClick('Locations')}>Locations</button>
         <button onClick={() => handleButtonClick('My Pokémons')}>My Pokémons</button>
-        <button onClick={() => handleButtonClick('Friends')}>Friends</button>
-        <button onClick={() => handleButtonClick('Login/Logout')}>Login/Logout</button>
       </nav>
     </header>
   );
