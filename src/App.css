@@ -111,7 +111,7 @@
 
 button {
   background-color: #3B4CCA;
-  color: #FFF;
+  color: #FFCB05;
   border: none;
   padding: 10px 20px;
   font-weight: bold;
@@ -120,7 +120,7 @@ button {
 }
 
 button:hover {
-  background-color: #2a2a72;
+  color: #FFF;
 }
 
 

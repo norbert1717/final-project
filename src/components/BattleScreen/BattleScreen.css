@@ -22,6 +22,7 @@
   width: 100px;
   height: 100px;
   margin: 10px 0;
+
 }
 
 .battle-actions {
@@ -29,8 +30,6 @@
 }
 
 .battle-actions button {
-  background-color: #28a745;
-  color: #fff;
   padding: 10px 15px;
   margin: 0 10px;
   border: none;
@@ -39,11 +38,9 @@
   cursor: pointer;
 }
 
-.battle-actions button:hover {
-  background-color: #218838;
-}
-
 .battle-actions button:disabled {
   background-color: #6c757d;
+  color: lightgrey;
   cursor: not-allowed;
+
 }

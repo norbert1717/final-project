@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './BattleScreen.css';
+import { LinearProgress } from '@mui/material';
 
 function BattleScreen({ playerPokemon, enemyPokemon, onCatch, onRun }) {
   const [playerHP, setPlayerHP] = useState(playerPokemon.stats.hp); // Player's current HP
@@ -39,11 +40,19 @@ function BattleScreen({ playerPokemon, enemyPokemon, onCatch, onRun }) {
           <h3>{playerPokemon.name}</h3>
           <img src={playerPokemon.sprite} alt={playerPokemon.name} />
           <p>HP: {playerHP <= 0 ? 0 : playerHP}</p>
+          <LinearProgress
+            variant="determinate"
+            value={(playerHP / playerPokemon.stats.hp * 100)}
+          />
         </div>
         <div className="enemy-pokemon">
           <h3>{enemyPokemon.name}</h3>
           <img src={enemyPokemon.sprite} alt={enemyPokemon.name} />
           <p>HP: {enemyHP <= 0 ? 0 : enemyHP}</p>
+          <LinearProgress
+            variant="determinate"
+            value={(enemyHP / enemyPokemon.stats.hp * 100)}
+          />
         </div>
       </div>
       <div className="battle-actions">

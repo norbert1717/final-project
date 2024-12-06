@@ -17,16 +17,14 @@ function App() {
   const [locationPokemonMap, setLocationPokemonMap] = useState({});
   const [showWelcome, setShowWelcome] = useState(true);
 
-  const usersPokemon = useRef([
-    "https://pokeapi.co/api/v2/pokemon/bulbasaur",
-    "https://pokeapi.co/api/v2/pokemon/charizard",
-    "https://pokeapi.co/api/v2/pokemon/poliwhirl"
+  const myPokemons = useRef([
+    "https://pokeapi.co/api/v2/pokemon/mewtwo"
   ]);
 
   useEffect(() => {
     const fetchLocations = async () => {
       try {
-        const response = await fetch('https://pokeapi.co/api/v2/location?limit=20');
+        const response = await fetch('https://pokeapi.co/api/v2/location?limit=50');
         const data = await response.json();
         setLocations(data.results);
 
@@ -98,10 +96,7 @@ function App() {
     setEncounteredPokemon(null);
     setSelectedPokemon(null);
     setShowLocations(true);
-    usersPokemon.current = [...usersPokemon.current, `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`];
-    return (
-      <p>You caught {pokemon.name}!</p>
-    );
+    myPokemons.current = [...myPokemons.current, `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`];
   };
 
   if (showWelcome) {
@@ -118,12 +113,16 @@ function App() {
     );
   }
 
+  const handleReleasePokemon = (pokemonName) => {
+    myPokemons.current = myPokemons.current.filter(url => !url.includes(pokemonName));
+  };
+
   return (
     <Router>
       <div className="app-container">
         <Header />
         <Routes>
-          <Route path="/" element={<WelcomeScreen onStart={() => setShowWelcome(false)} />} />
+          <Route path="/" element={<WelcomeScreen onStart={() => setShowWelcome(false)}/>} />
           <Route path="/locations" element={showLocations ? (
             <div className="locations-grid">
               {locations.map((location) => (
@@ -147,9 +146,13 @@ function App() {
                 <div className="pokemon-encounter">
                   <h2>Encountered Pokémon: {encounteredPokemon.name}</h2>
                   <img src={encounteredPokemon.sprite} alt={encounteredPokemon.name} />
+                  <div className="pokemon-stats">
+                    <span>HP: {encounteredPokemon.stats.hp}</span>
+                    <span>Attack: {encounteredPokemon.stats.attack}</span>
+                  </div>
                   <UserPokemonSelect
                     onSelectPokemon={handleSelectedPokemon}
-                    usersPokemon={usersPokemon}
+                    usersPokemon={myPokemons} 
                     isForBattle={true}
                   />
                 </div>
@@ -159,16 +162,17 @@ function App() {
                 </div>
               )}
               {encounteredPokemon && (
-                <UserPokemonSelect onSelectPokemon={handleSelectedPokemon} usersPokemon={usersPokemon} />
+                <UserPokemonSelect onSelectPokemon={handleSelectedPokemon} />
               )}
               <button onClick={() => setShowLocations(true)}>Back to Locations</button>
             </div>
           )} />
           <Route path="/mypokemons" element={
             <UserPokemonSelect
-              usersPokemon={usersPokemon}
+              usersPokemon={myPokemons} 
               onSelectPokemon={handleSelectedPokemon}
               isForBattle={false}
+              onRelease={handleReleasePokemon}
             />
           } />
         </Routes>
