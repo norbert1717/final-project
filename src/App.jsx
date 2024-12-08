@@ -1,12 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import LocationCard from './components/LocationCard/LocationCard';
 import Header from './components/Header/Header';
 import UserPokemonSelect from './components/UserPokemonSelect/UserPokemonSelect';
 import BattleScreen from './components/BattleScreen/BattleScreen';
 import { getRandomPokemonsFromLocation } from './components/RandomGenerator/RandomGenerator';
 import WelcomeScreen from './components/WelcomeScreen/WelcomeScreen';
+import Locations from './components/Location/Locations';
+
 
 function App() {
   const [locations, setLocations] = useState([]);
@@ -16,6 +17,7 @@ function App() {
   const [showLocations, setShowLocations] = useState(true);
   const [locationPokemonMap, setLocationPokemonMap] = useState({});
   const [showWelcome, setShowWelcome] = useState(true);
+
 
   const myPokemons = useRef([
     "https://pokeapi.co/api/v2/pokemon/mewtwo"
@@ -99,20 +101,6 @@ function App() {
     myPokemons.current = [...myPokemons.current, `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`];
   };
 
-  if (showWelcome) {
-    return <WelcomeScreen onStart={() => setShowWelcome(false)} />;
-  }
-
-  if (loading) {
-    return (
-      <div className="app-container">
-        <Header />
-        <h1 className="page-title">Pokémon Locations</h1>
-        <p>Loading...</p>
-      </div>
-    );
-  }
-
   const handleReleasePokemon = (pokemonName) => {
     myPokemons.current = myPokemons.current.filter(url => !url.includes(pokemonName));
   };
@@ -120,56 +108,52 @@ function App() {
   return (
     <Router>
       <div className="app-container">
-        <Header />
+        {!showWelcome && <Header />}
         <Routes>
-          <Route path="/" element={<WelcomeScreen onStart={() => setShowWelcome(false)}/>} />
-          <Route path="/locations" element={showLocations ? (
-            <div className="locations-grid">
-              {locations.map((location) => (
-                <LocationCard
-                  key={location.name}
-                  location={location}
-                  onClick={() => handleLocationClick(location)}
-                />
-              ))}
-            </div>
-          ) : encounteredPokemon && selectedPokemon ? (
-            <BattleScreen
-              playerPokemon={selectedPokemon}
-              enemyPokemon={encounteredPokemon}
-              onCatch={handleCatchPokemon}
-              onRun={handleRunFromBattle}
+          <Route path="/" element={<WelcomeScreen />} />
+          <Route path="/locations" element={showLocations ?
+            <Locations
+              locations={locations}
+              handleLocationClick={handleLocationClick}
+              setShowWelcome={setShowWelcome}
             />
-          ) : (
-            <div className="encounter">
-              {encounteredPokemon ? (
-                <div className="pokemon-encounter">
-                  <h2>Encountered Pokémon: {encounteredPokemon.name}</h2>
-                  <img src={encounteredPokemon.sprite} alt={encounteredPokemon.name} />
-                  <div className="pokemon-stats">
-                    <span>HP: {encounteredPokemon.stats.hp}</span>
-                    <span>Attack: {encounteredPokemon.stats.attack}</span>
+            : encounteredPokemon && selectedPokemon ? (
+              <BattleScreen
+                playerPokemon={selectedPokemon}
+                enemyPokemon={encounteredPokemon}
+                onCatch={handleCatchPokemon}
+                onRun={handleRunFromBattle}
+              />
+            ) : (
+              <div className="encounter">
+                {encounteredPokemon ? (
+                  <div className="pokemon-encounter">
+                    <h2>Encountered Pokémon: {encounteredPokemon.name}</h2>
+                    <img src={encounteredPokemon.sprite} alt={encounteredPokemon.name} />
+                    <div className="pokemon-stats">
+                      <span>HP: {encounteredPokemon.stats.hp}</span>
+                      <span>Attack: {encounteredPokemon.stats.attack}</span>
+                    </div>
+                    <UserPokemonSelect
+                      onSelectPokemon={handleSelectedPokemon}
+                      usersPokemon={myPokemons}
+                      isForBattle={true}
+                    />
                   </div>
-                  <UserPokemonSelect
-                    onSelectPokemon={handleSelectedPokemon}
-                    usersPokemon={myPokemons} 
-                    isForBattle={true}
-                  />
-                </div>
-              ) : (
-                <div className="no-pokemon">
-                  <p>This location does not seem to have any Pokémon.</p>
-                </div>
-              )}
-              {encounteredPokemon && (
-                <UserPokemonSelect onSelectPokemon={handleSelectedPokemon} />
-              )}
-              <button onClick={() => setShowLocations(true)}>Back to Locations</button>
-            </div>
-          )} />
+                ) : (
+                  <div className="no-pokemon">
+                    <p>This location does not seem to have any Pokémon.</p>
+                  </div>
+                )}
+                {encounteredPokemon && (
+                  <UserPokemonSelect onSelectPokemon={handleSelectedPokemon} />
+                )}
+                <button onClick={() => setShowLocations(true)}>Back to Locations</button>
+              </div>
+            )} />
           <Route path="/mypokemons" element={
             <UserPokemonSelect
-              usersPokemon={myPokemons} 
+              usersPokemon={myPokemons}
               onSelectPokemon={handleSelectedPokemon}
               isForBattle={false}
               onRelease={handleReleasePokemon}
