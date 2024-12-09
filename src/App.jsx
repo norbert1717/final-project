@@ -11,7 +11,6 @@ import Locations from './components/Location/Locations';
 
 function App() {
   const [locations, setLocations] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [encounteredPokemon, setEncounteredPokemon] = useState(null);
   const [selectedPokemon, setSelectedPokemon] = useState(null);
   const [showLocations, setShowLocations] = useState(true);
@@ -26,7 +25,7 @@ function App() {
   useEffect(() => {
     const fetchLocations = async () => {
       try {
-        const response = await fetch('https://pokeapi.co/api/v2/location?limit=50');
+        const response = await fetch('https://pokeapi.co/api/v2/location?limit=20');
         const data = await response.json();
         setLocations(data.results);
 
@@ -37,7 +36,6 @@ function App() {
         }
 
         setLocationPokemonMap(newLocationPokemonMap);
-        setLoading(false);
       } catch (error) {
         console.error('Error fetching locations:', error);
       }

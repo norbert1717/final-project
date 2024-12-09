@@ -22,8 +22,8 @@ export const getRandomPokemonsFromLocation = async (locationUrl) => {
     }
 
     // Choose a random number of Pokémon (e.g., 2-3)
-    const min = 1;
-    const max = 100;
+    const min = 0;
+    const max = 8;
     const count = Math.floor(Math.random() * (max - min + 1)) + max;
 
     // Randomly select Pokémon from the encounters

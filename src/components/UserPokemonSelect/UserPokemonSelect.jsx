@@ -6,10 +6,17 @@ function UserPokemonSelect({ onSelectPokemon, onRelease, usersPokemon, isForBatt
 
   useEffect(() => {
     const fetchUserPokemons = async () => {
+      if (!usersPokemon || !usersPokemon.current) {
+        return;
+      }
+
       const fetchedPokemons = [];
       for (let url of usersPokemon.current) {
         try {
           const response = await fetch(url);
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
           const data = await response.json();
           fetchedPokemons.push(data);
         } catch (error) {
@@ -44,10 +51,11 @@ function UserPokemonSelect({ onSelectPokemon, onRelease, usersPokemon, isForBatt
               <button onClick={() => onSelectPokemon(pokemon)}>
                 Choose this Pokémon
               </button>
-            ) :
+            ) : (
               <button onClick={() => handleRelease(pokemon.name)}>
                 Be Free
-              </button>}
+              </button>
+            )}
           </div>
         ))}
       </div>
